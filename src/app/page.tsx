@@ -17,7 +17,7 @@ import { Switch } from "@/components/ui/switch"
 import { useAccount,  useWriteContract } from "wagmi"
 import { ABI } from "@/lib/contractABIs/abi"
 import { config } from "@/config"
-import { Address, parseEther, ReadContractReturnType } from "viem"
+import { Address, parseEther } from "viem"
 import toast from "react-hot-toast"
 import { Loader } from "lucide-react"
 import { arbitrum, base, degen } from 'wagmi/chains'
@@ -74,13 +74,17 @@ export default function BountyGenerator() {
         value: chainId === degen.id ? BigInt(amount+ "000000000000000000") : parseEther(amount),
         chainId: chainId,
       })
-      const bounty:ReadContractReturnType = await readContract(config,{
+      const bounty = await readContract(config,{
         abi: ABI,
         address: contracAddress,
         functionName: 'getBountiesByUser',
         chainId: chainId,
         args: [address, 0 ]
-      })
+      })  as Array<{
+  id: bigint;
+  name: string;
+  description: string;
+}>;
       if(bounty.length <= 10){
         let b = 0;
         for(let i = 0; i < 10; i++){
@@ -88,9 +92,21 @@ export default function BountyGenerator() {
             b = i;
           }
         }
-        setGeneratedBounty({...bounty[b], network: chainId})
+        const bo : Bounty = {
+          id: Number(bounty[b].id),
+          title: bounty[b].name,
+          description: bounty[b].description,
+          network: chainId
+        }
+        setGeneratedBounty(bo)
       }else{
-        setGeneratedBounty({...bounty[bounty.length - 1], network: chainId})
+        const bo : Bounty = {
+          id: Number(bounty[bounty.length - 1].id),
+          title: bounty[bounty.length - 1].name,
+          description: bounty[bounty.length - 1].description,
+          network: chainId
+        }
+        setGeneratedBounty(bo)
       }
       setIsCreating(false);
     } catch (error: any) {
@@ -252,7 +268,7 @@ export default function BountyGenerator() {
                   <h3 className="text-lg font-semibold">Bounty Created Successfully</h3>
                   <p className="text-sm">Bounty ID: {generatedBounty.id}</p>
                   <p className="text-sm">Network: {generatedBounty.network}</p>
-                  <p className="text-sm">Bounty Title: {generatedBounty.name}</p>
+                  <p className="text-sm">Bounty Title: {generatedBounty.title}</p>
                   <p className="text-sm">Bounty Description: {generatedBounty.description}</p>
                   {/* // view on poidh ounty page */}
                   <div className="flex mt-2 flex-col sm:flex-row m-0  justify-start items-center space-x-2">

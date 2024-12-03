@@ -29,7 +29,7 @@ export function Header() {
 
              <appkit-button size="sm"/>
             {
-                isConnected && <appkit-network-button clssname="mr-0"/>
+                isConnected && <appkit-network-button/>
             }     
             </div>
             </>
