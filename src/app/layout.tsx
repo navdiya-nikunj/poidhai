@@ -8,6 +8,9 @@ import { Toaster } from 'react-hot-toast';
 export const metadata: Metadata = {
   title: "Poidh AI",
   description: "poidh ai",
+  icons: {
+    icon: "/favicon.png",
+  }
 };
 
 export default async function RootLayout({

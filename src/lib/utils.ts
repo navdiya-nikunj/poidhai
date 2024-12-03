@@ -11,5 +11,5 @@ export function getNetworkNameForPoidh(chainid: number) {
 }
 
 export function getNetworkNameForFrame(chainid: number) {
-  return base.id === chainid ? "Base%2520Network" : degen.id === chainid ? "Degen%20Mainnet" : arbitrum.id === chainid ? "arbitrum" : "";
+  return base.id === chainid ? `Base%2520Network` : degen.id === chainid ? `Degen%20Mainnet` : arbitrum.id === chainid ? `arbitrum` : "";
 }

@@ -44,14 +44,13 @@ export default function BountyGenerator() {
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
-  const [generatedBounty, setGeneratedBounty] = useState<Bounty | null>(null);
+  const [generatedBounty, setGeneratedBounty] = useState<Bounty | null>(null)
   const {address}  = useAccount();
   
   const handleGenerateBounty = async  () => {
     setGeneratedBounty(null);
     setAmount("");
     try{
-
       setIsGenerating(true);
       const generatedBounty = await  generateBounty(hint, category, difficulty)
       setIsGenerating(false);
@@ -283,7 +282,7 @@ export default function BountyGenerator() {
                     <Button
                   className="bg-purple-500 text-white font-medium m-0 rounded"
                 onClick={() => {
-                    const url = `https://warpcast.com/~/compose?text=I+just+created+a+bounty+on+poidh.xyz%21+Check+it+out%3A+https%3A%2F%2Fpoidh-frame-test.vercel.app%2Fapi%2Fbounty%2F${getNetworkNameForFrame(Number(generatedBounty.network))}%2F${generatedBounty.id}`;
+                    const url = `https://warpcast.com/~/compose?text=I+just+created+a+bounty+on+poidh.xyz%21+Check+it+out%3A+https%3A%2F%2Fpoidh-frame-test.vercel.app%2Fapi%2Fbounty%2F${getNetworkNameForFrame(generatedBounty.network)}%2F${generatedBounty.id}`;
                     window.open(url, '_blank');}}>
                     Share on Farcaster
                     </Button>

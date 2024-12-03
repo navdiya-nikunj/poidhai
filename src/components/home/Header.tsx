@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image";
 import { useAccount } from "wagmi"
 
 export function Header() {
@@ -10,6 +11,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
+            <Image src={'/logo.png'} alt="PoidhAIBounties" width={50} height={50} />
             <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-purple-800">PoidhAIBounties</h1>
           </div>
          
