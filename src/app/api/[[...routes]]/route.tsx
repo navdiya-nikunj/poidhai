@@ -27,7 +27,15 @@ const app = new Frog<{State:State}>({
         bountyDescription: '',
         chain: '',
         reward: 0,
+    },
+     hub: {
+    apiUrl: "https://hubs.airstack.xyz",
+    fetchOptions: {
+      headers: {
+        "x-airstack-hubs": "YOUR_AIRSTACK_API_KEY",
+      }
     }
+  }
 })
 
 app.frame('/', (c) => {
@@ -71,6 +79,7 @@ title:'PoidhAI',
 app.frame('/generate', async (c) => {
   const {deriveState, inputText} = c;
   console.log("input",inputText);
+  let res;
   const state = await deriveState(async (previousState) => {
     const response = await  fetch(`https://poidhai-omega.vercel.app/api/generateBounty`, {
         method: 'POST',
@@ -80,6 +89,9 @@ app.frame('/generate', async (c) => {
         body: JSON.stringify({ hint:inputText }),
     });
     console.log(response);
+    if(response.status === 503){
+      res = 503;
+    }
     if (!response.ok) {
         previousState.bountyTitle = 'Failed';
         previousState.bountyDescription = '';
@@ -89,8 +101,11 @@ app.frame('/generate', async (c) => {
     previousState.bountyDescription = data.generatedBounty.description;
     }
   })
+  if(res === 503){
+    return c.error({message: 'I m using free hosting, please try once again it will work'});
+  }
   if(state.bountyTitle === 'Failed'){
-    return c.error({message: 'Failed to generate bounty'});
+    return c.error({message: 'Failed to generate bounty please try again'});
   }
   console.log(state)
   return c.res({
