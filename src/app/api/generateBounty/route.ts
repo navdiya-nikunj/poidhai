@@ -6,6 +6,11 @@ const genAI = new GoogleGenerativeAI(process.env.GEMENI_API_KEY || '');
 export async function POST(request: Request) {
     try {
         const { hint, category, difficulty } = await request.json();
+
+        if (!hint) {
+            return NextResponse.json({ error: 'Missing hint' }, { status: 400 });
+        }
+
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const prompt = `You are an POIDH ai which helps people giving bounty ideas:
 following is the concept of poidh:
@@ -35,6 +40,7 @@ Bounty Idea Generation Guidelines:
 4. Design a bounty that provides clear value to the task creator
 5. Avoid tasks requiring personal information or complex skills
 6. Ensure the bounty is not too broad or too narrow
+7. Don't specify time or reward in description.
 Don't give any placeholder text in the response. 
 try to imitate the real life boutiens which are unique and feasible to complete.
 don't include any characters in title and description which are not in the JSON schema.
@@ -42,8 +48,8 @@ don't include any characters in title and description which are not in the JSON 
 Use the following parameters to generate the bounty:
 
 - Context: ${hint}
-- Category: ${category}
-- Difficulty: ${difficulty}
+- Category: ${category ? category : "any category is fine"}
+- Difficulty: ${difficulty ? difficulty : "any difficulty is fine"}
 
 Output Format:
 return{"bountyTitle": string, "BountyDescription":string}
