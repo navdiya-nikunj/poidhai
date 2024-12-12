@@ -72,7 +72,7 @@ app.frame('/generate', async (c) => {
   const {deriveState, inputText} = c;
   console.log("input",inputText);
   const state = await deriveState(async (previousState) => {
-    const response = await  fetch('http://localhost:3000/api/generateBounty', {
+    const response = await  fetch(`${process.env.FRONTEND_URL}/api/generateBounty`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
