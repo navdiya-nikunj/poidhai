@@ -223,7 +223,7 @@ app.frame('/finish', async (c) => {
   }
   const contractAddress =  previousState.chain === 'degen' ? '0x2445BfFc6aB9EEc6C562f8D7EE325CddF1780814' : previousState.chain === 'base' ? "0xb502c5856F7244DccDd0264A541Cc25675353D39" : "0x0Aa50ce0d724cc28f8F7aF4630c32377B4d5c27d";
   const contract = new web3Instance.eth.Contract(ABI, contractAddress);
-  const res = await contract.methods.bountyCounter().call();
+  const res = await contract.methods.bountyCounter().call() as number;
   console.log(res);
   return c.res({
     image: (
@@ -241,7 +241,7 @@ app.frame('/finish', async (c) => {
           </Box>
     ),
     intents:[
-      <Button.Redirect location={`https://poidh.xyz/${previousState.chain}/bounty/${res}`}>Checkout Bounty</Button.Redirect>
+      <Button.Redirect location={`https://poidh.xyz/${previousState.chain}/bounty/${res-1}`}>Checkout Bounty</Button.Redirect>
     ]
   })
 })
