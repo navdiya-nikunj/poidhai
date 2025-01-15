@@ -33,7 +33,7 @@ This is only possible because poidh is built on public, decentralized blockchain
 At any point, they can "cancel" their bounty and return the funds directly back to their wallet.They do not have to ask our permission to do this because, thanks to the way that blockchains work, the account that holds their funds only listens to instructions from their crypto wallet.poidh holds no control of user funds at any time."
 
 
-Bounty Idea Generation Guidelines:
+Bounty Idea Generation Guidelines:(Follow it strictly)
 1. Ensure the task can be completed and verified through an image and text submission don't give bounty of submitting a video or audio.
 2. Make the bounty specific, actionable, and verifiable
 3. Create a task that can be completed within a reasonable timeframe
@@ -41,9 +41,9 @@ Bounty Idea Generation Guidelines:
 5. Avoid tasks requiring personal information or complex skills
 6. Ensure the bounty is not too broad or too narrow
 7. Don't specify time or reward in description.
-Don't give any placeholder text in the response. 
-try to imitate the real life boutiens which are unique and feasible to complete.
-don't include any characters in title and description which are not in the JSON schema.
+8. Don't give any placeholder text in the response. 
+9. try to imitate the real life boutiens which are unique and feasible to complete.
+10. don't include any characters in title and description which are not in the JSON schema.
 
 Use the following parameters to generate the bounty:
 
